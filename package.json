@@ -1,0 +1,11 @@
+{
+  "name": "iptv-proxy",
+  "license": "MIT",
+  "version": "0.0.1",
+  "dependencies": {
+    "ascii-table": "^0.0.9",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.1",
+    "nodemon": "^2.0.7"
+  }
+}
