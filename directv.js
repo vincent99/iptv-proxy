@@ -1,4 +1,5 @@
 const fetchLib = require('node-fetch');
+const utils = require('./utils');
 
 const DEFAULT_PORT = '8080';
 
@@ -29,10 +30,10 @@ function tune(tuner, channel) {
     [major, minor] = channel.split('-', 2);
   }
 
-  let path = addParam('/tv/tune', 'major', major);
+  let path = utils.addParam('/tv/tune', 'major', major);
 
   if ( minor ) {
-    path = addParam(path, 'minor', minor);
+    path = utils.addParam(path, 'minor', minor);
   }
 
   return fetch(tuner, path).then((res) => {

@@ -2953,6 +2953,14 @@
       "channel": "686"
     },
     {
+      "stationID": "16513",
+      "channel": "686-1"
+    },
+    {
+      "stationID": "16514",
+      "channel": "686-2"
+    },
+    {
       "stationID": "61101",
       "channel": "686"
     },
@@ -37964,6 +37972,120 @@
       "stationID": "16512",
       "name": "Bally Sports Arizona - BSAZ",
       "callsign": "BSAZ",
+      "broadcastLanguage": [
+        "en"
+      ],
+      "descriptionLanguage": [
+        "en"
+      ],
+      "broadcaster": {
+        "city": "Phoenix",
+        "state": "AZ",
+        "postalcode": "85004",
+        "country": "United States"
+      },
+      "stationLogo": [
+        {
+          "URL": "https://schedulesdirect-api20141201.s3.us-east-1.amazonaws.com/assets/stationLogos/s16512_dark_360w_270h.png",
+          "height": 270,
+          "width": 360,
+          "md5": "6e60223e4bbf50187a246f6d40238340",
+          "source": "Gracenote",
+          "category": "dark"
+        },
+        {
+          "URL": "https://schedulesdirect-api20141201.s3.us-east-1.amazonaws.com/assets/stationLogos/s16512_gray_360w_270h.png",
+          "height": 270,
+          "width": 360,
+          "md5": "2b9467040a46fedef54ff2da1b97d503",
+          "source": "Gracenote",
+          "category": "gray"
+        },
+        {
+          "URL": "https://schedulesdirect-api20141201.s3.us-east-1.amazonaws.com/assets/stationLogos/s16512_light_360w_270h.png",
+          "height": 270,
+          "width": 360,
+          "md5": "615f6d78f37fa0262ddce1b98a5f666a",
+          "source": "Gracenote",
+          "category": "light"
+        },
+        {
+          "URL": "https://schedulesdirect-api20141201.s3.us-east-1.amazonaws.com/assets/stationLogos/s16512_white_360w_270h.png",
+          "height": 270,
+          "width": 360,
+          "md5": "0fe27cb29a0e70cd861cc2aee9fd7ce7",
+          "source": "Gracenote",
+          "category": "white"
+        }
+      ],
+      "logo": {
+        "URL": "https://schedulesdirect-api20141201.s3.us-east-1.amazonaws.com/assets/stationLogos/s16512_dark_360w_270h.png",
+        "height": 270,
+        "width": 360,
+        "md5": "6e60223e4bbf50187a246f6d40238340"
+      }
+    },
+    {
+      "stationID": "16513",
+      "name": "Bally Sports Arizona Plus - BSAZP",
+      "callsign": "BSAZP",
+      "broadcastLanguage": [
+        "en"
+      ],
+      "descriptionLanguage": [
+        "en"
+      ],
+      "broadcaster": {
+        "city": "Phoenix",
+        "state": "AZ",
+        "postalcode": "85004",
+        "country": "United States"
+      },
+      "stationLogo": [
+        {
+          "URL": "https://schedulesdirect-api20141201.s3.us-east-1.amazonaws.com/assets/stationLogos/s16512_dark_360w_270h.png",
+          "height": 270,
+          "width": 360,
+          "md5": "6e60223e4bbf50187a246f6d40238340",
+          "source": "Gracenote",
+          "category": "dark"
+        },
+        {
+          "URL": "https://schedulesdirect-api20141201.s3.us-east-1.amazonaws.com/assets/stationLogos/s16512_gray_360w_270h.png",
+          "height": 270,
+          "width": 360,
+          "md5": "2b9467040a46fedef54ff2da1b97d503",
+          "source": "Gracenote",
+          "category": "gray"
+        },
+        {
+          "URL": "https://schedulesdirect-api20141201.s3.us-east-1.amazonaws.com/assets/stationLogos/s16512_light_360w_270h.png",
+          "height": 270,
+          "width": 360,
+          "md5": "615f6d78f37fa0262ddce1b98a5f666a",
+          "source": "Gracenote",
+          "category": "light"
+        },
+        {
+          "URL": "https://schedulesdirect-api20141201.s3.us-east-1.amazonaws.com/assets/stationLogos/s16512_white_360w_270h.png",
+          "height": 270,
+          "width": 360,
+          "md5": "0fe27cb29a0e70cd861cc2aee9fd7ce7",
+          "source": "Gracenote",
+          "category": "white"
+        }
+      ],
+      "logo": {
+        "URL": "https://schedulesdirect-api20141201.s3.us-east-1.amazonaws.com/assets/stationLogos/s16512_dark_360w_270h.png",
+        "height": 270,
+        "width": 360,
+        "md5": "6e60223e4bbf50187a246f6d40238340"
+      }
+    },
+    {
+      "stationID": "16514",
+      "name": "Bally Sports Arizona Extra - BSAZE",
+      "callsign": "BSAZE",
       "broadcastLanguage": [
         "en"
       ],
