@@ -2,6 +2,7 @@ const fetch = require('node-fetch');
 const config = require('./config');
 
 const DEFAULT_ENCODER_PORT = '80';
+const STREAM_TIMEOUT = 30000;
 
 module.exports = {
   lock,
@@ -10,23 +11,23 @@ module.exports = {
 };
 
 function lock(tuner) {
-  if ( config.ENABLE_LOCKING &&  tuner.state === config.BUSY ) {
+  if ( config.ENABLE_LOCKING && tuner.state === config.BUSY ) {
     throw new Error('Tuner in use');
   }
 
   const id = (new Date().getTime());
 
-  console.log(`Locked ${tuner.name}: ${id}`);
-
   tuner.state = config.BUSY;
   tuner.lock = id;
+
+  console.log(`[${tuner.name}] Locked: ${id}`);
 
   return id;
 }
 
 function stream(tuner, lock, req, res) {
   const port = `${tuner.encoderPort || DEFAULT_ENCODER_PORT}`;
-
+  let closed = false;
   let url = 'http://' + tuner.encoderHost;
 
   if ( port && port !== '80' ) {
@@ -35,26 +36,60 @@ function stream(tuner, lock, req, res) {
 
   url += '/' + tuner.encoderPath.replace(/^\//, '');
 
-  console.log(`Loading stream for ${tuner.name}`);
+  if ( config.USE_REDIRECT ) {
+    console.log(`[${tuner.name}] Redirecting to ${url}`);
+    res.writeHead(302, 'Found', {
+      Location: url,
+    });
+    res.end();
+    done();
+    return;
+  }
+
+  console.log(`[${tuner.name}] Loading stream`);
   return fetch(url).then((stream) => {
-    console.log(`Streaming ${tuner.name}`);
-    stream.body.pipe(res);
+    let timer = setTimeout(done, STREAM_TIMEOUT);
+
+    console.log(`[${tuner.name}] Streaming`);
+    stream.body.on('data', (data) => {
+      if ( closed ) {
+        return;
+      }
+
+      clearTimeout(timer);
+      timer = setTimeout(() => done(true), STREAM_TIMEOUT);
+      res.write(data);
+    });
+
     stream.body.on('end', done);
     req.on('close', done);
-
-    function done() {
-      console.log(`Stopping ${tuner.name}`);
-      unlock(tuner, lock);
-    }
+    req.on('end', done);
+  }).catch((e) => {
+    res.status(400).end('Error:' + e);
+    done();
   });
+
+  function done(timedOut) {
+    if ( !closed ) {
+      closed = true;
+      console.log(`[${tuner.name}] Stopping`, (timedOut ? 'timed out' : ''));
+      unlock(tuner, lock);
+
+      res.end();
+    }
+  }
 }
 
 function unlock(tuner, id) {
-  if ( tuner.lock === id && tuner.state === config.BUSY ) {
-    console.log(`Unlocking ${tuner.name}`);
-    tuner.state = config.IDLE;
-    tuner.lock = null;
+  if ( tuner.state === config.BUSY ) {
+    if ( tuner.lock === id ) {
+      tuner.state = config.IDLE;
+      tuner.lock = null;
+      console.log(`[${tuner.name}] Unlocked`);
+    } else {
+      console.error(`[${tuner.name}] Unlocking: Mismatch`);
+    }
   } else {
-    console.log(`Unlocking ${tuner.name}: Mismatch`);
+      console.error(`[${tuner.name}] Unlocking: Not locked?`);
   }
 }

@@ -10,19 +10,19 @@
     },
     {
       "stationID": "30817",
-      "channel": "003"
+      "channel": "3.1"
     },
     {
       "stationID": "10751",
-      "channel": "003"
+      "channel": "3.1"
     },
     {
       "stationID": "10640",
-      "channel": "005"
+      "channel": "5.1"
     },
     {
       "stationID": "21293",
-      "channel": "005"
+      "channel": "5.1"
     },
     {
       "stationID": "10572",
@@ -34,35 +34,35 @@
     },
     {
       "stationID": "10784",
-      "channel": "007"
+      "channel": "7.1"
     },
     {
       "stationID": "32426",
-      "channel": "007"
+      "channel": "7.1"
     },
     {
       "stationID": "10316",
-      "channel": "008"
+      "channel": "8.1"
     },
     {
       "stationID": "25102",
-      "channel": "008"
+      "channel": "8.1"
     },
     {
       "stationID": "21209",
-      "channel": "010"
+      "channel": "10.1"
     },
     {
       "stationID": "10738",
-      "channel": "010"
+      "channel": "10.1"
     },
     {
       "stationID": "20507",
-      "channel": "012"
+      "channel": "12.1"
     },
     {
       "stationID": "10645",
-      "channel": "012"
+      "channel": "12.1"
     },
     {
       "stationID": "12686",
@@ -74,11 +74,11 @@
     },
     {
       "stationID": "21210",
-      "channel": "015"
+      "channel": "15.1"
     },
     {
       "stationID": "10602",
-      "channel": "015"
+      "channel": "15.1"
     },
     {
       "stationID": "35156",
@@ -98,23 +98,23 @@
     },
     {
       "stationID": "24345",
-      "channel": "045"
+      "channel": "45.1"
     },
     {
       "stationID": "10785",
-      "channel": "045"
+      "channel": "45.1"
     },
     {
-      "stationID": "21596",
+      "stationID": "76894",
       "channel": "051"
     },
     {
       "stationID": "30818",
-      "channel": "061"
+      "channel": "61.1"
     },
     {
       "stationID": "15719",
-      "channel": "061"
+      "channel": "61.1"
     },
     {
       "stationID": "11069",
@@ -629,20 +629,12 @@
       "channel": "201"
     },
     {
-      "stationID": "10142",
-      "channel": "202"
-    },
-    {
       "stationID": "58646",
       "channel": "202"
     },
     {
       "stationID": "114483",
       "channel": "203"
-    },
-    {
-      "stationID": "10145",
-      "channel": "204"
     },
     {
       "stationID": "64549",
@@ -677,24 +669,8 @@
       "channel": "208"
     },
     {
-      "stationID": "19621",
-      "channel": "209"
-    },
-    {
-      "stationID": "12444",
-      "channel": "209"
-    },
-    {
-      "stationID": "19620",
-      "channel": "209"
-    },
-    {
       "stationID": "45507",
       "channel": "209"
-    },
-    {
-      "stationID": "34710",
-      "channel": "212"
     },
     {
       "stationID": "45399",
@@ -705,22 +681,6 @@
       "channel": "213"
     },
     {
-      "stationID": "62079",
-      "channel": "213"
-    },
-    {
-      "stationID": "62083",
-      "channel": "213"
-    },
-    {
-      "stationID": "62085",
-      "channel": "213"
-    },
-    {
-      "stationID": "45169",
-      "channel": "214"
-    },
-    {
       "stationID": "61036",
       "channel": "214"
     },
@@ -729,15 +689,7 @@
       "channel": "215"
     },
     {
-      "stationID": "58570",
-      "channel": "215"
-    },
-    {
       "stationID": "45526",
-      "channel": "216"
-    },
-    {
-      "stationID": "32281",
       "channel": "216"
     },
     {
@@ -745,15 +697,7 @@
       "channel": "217"
     },
     {
-      "stationID": "33395",
-      "channel": "217"
-    },
-    {
       "stationID": "61854",
-      "channel": "218"
-    },
-    {
-      "stationID": "14899",
       "channel": "218"
     },
     {
@@ -761,23 +705,11 @@
       "channel": "219"
     },
     {
-      "stationID": "82541",
-      "channel": "219"
-    },
-    {
       "stationID": "48639",
       "channel": "220"
     },
     {
-      "stationID": "15952",
-      "channel": "220"
-    },
-    {
       "stationID": "59250",
-      "channel": "221"
-    },
-    {
-      "stationID": "16365",
       "channel": "221"
     },
     {
@@ -809,10 +741,6 @@
       "channel": "228"
     },
     {
-      "stationID": "14902",
-      "channel": "229"
-    },
-    {
       "stationID": "49788",
       "channel": "229"
     },
@@ -841,10 +769,6 @@
       "channel": "232"
     },
     {
-      "stationID": "14909",
-      "channel": "233"
-    },
-    {
       "stationID": "68827",
       "channel": "233"
     },
@@ -869,10 +793,6 @@
       "channel": "237"
     },
     {
-      "stationID": "52199",
-      "channel": "238"
-    },
-    {
       "stationID": "68385",
       "channel": "238"
     },
@@ -891,10 +811,6 @@
     {
       "stationID": "62077",
       "channel": "240"
-    },
-    {
-      "stationID": "11163",
-      "channel": "241"
     },
     {
       "stationID": "59186",
@@ -2953,11 +2869,11 @@
       "channel": "686"
     },
     {
-      "stationID": "16513",
+      "stationID": "75119",
       "channel": "686-1"
     },
     {
-      "stationID": "16514",
+      "stationID": "118605",
       "channel": "686-2"
     },
     {
@@ -38026,7 +37942,7 @@
       }
     },
     {
-      "stationID": "16513",
+      "stationID": "75119",
       "name": "Bally Sports Arizona Plus - BSAZP",
       "callsign": "BSAZP",
       "broadcastLanguage": [
@@ -38083,7 +37999,7 @@
       }
     },
     {
-      "stationID": "16514",
+      "stationID": "118605",
       "name": "Bally Sports Arizona Extra - BSAZE",
       "callsign": "BSAZE",
       "broadcastLanguage": [

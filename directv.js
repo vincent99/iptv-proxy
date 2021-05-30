@@ -26,7 +26,9 @@ function tune(tuner, channel) {
   let major = channel;
   let minor = 0;
 
-  if ( channel.includes('-') ) {
+  if ( channel.includes('.') ) {
+    major = channel.split('.', 1)[0];
+  } else if ( channel.includes('-') ) {
     [major, minor] = channel.split('-', 2);
   }
 
@@ -37,7 +39,17 @@ function tune(tuner, channel) {
   }
 
   return fetch(tuner, path).then((res) => {
-    console.log(`Tune ${tuner.name} to ${channel}: ${res.ok}`);
+      // Get rid of banners, but don't make the caller wait for it
+    utils.sleep(500).then(() => {
+      return fetch(tuner, '/remote/processKey?key=exit').then(() => {
+        return fetch(tuner, '/remote/processKey?key=exit').then(() => {
+          return fetch(tuner, '/remote/processKey?key=exit').then(() => {
+          });
+        });
+      });
+    });
+
+    console.log(`[${tuner.name}] Tune to ${channel}: ${res.ok}`);
     return res.ok;
   });
 }

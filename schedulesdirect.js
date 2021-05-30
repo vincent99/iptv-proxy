@@ -17,6 +17,14 @@ module.exports = {
   m3u,
 };
 
+function quality(obj) {
+  if ( obj.name.includes('HD') ) {
+    return 2;
+  }
+
+  return 1;
+}
+
 function m3u(tunerName, hostHeader) {
   const stations = parseLineup(fs.readFileSync('lineup.json'));
   const channels = JSON.parse(fs.readFileSync('channels.json'));
@@ -28,21 +36,25 @@ function m3u(tunerName, hostHeader) {
     channelMap[`${channel}`] = true;
   }
 
-  let out = ["#EXTM3U"];
+  let outChannels = {};
 
   for ( const s of stations ) {
     if ( !channelMap[s.channel] ) {
       continue;
     }
 
-    if ( seen[`${s.channel}`] ) {
+    if ( outChannels[`${s.channel}`] && quality(outChannels[`${s.channel}`]) > quality(s) ) {
       continue;
     }
 
-    seen[s.channel] = true;
+    outChannels[s.channel] = s;
+  };
 
+  let out = ["#EXTM3U"];
+
+  for ( const s of Object.values(outChannels) ) {
     out.push(`#EXTINF:-1 tvh-chnum="${s.channel}" tvg-id="${s.stationID}" tvg-uuid="${s.uuid}" tvh-epg="0",${s.name}`);
-    out.push(`http://${hostHeader}/${escape(tunerName)}/stream/${s.channel}`);
+    out.push(`http://${hostHeader}/stream/${s.channel}/${escape(tunerName)}`);
   }
 
   return out.join("\n");
@@ -53,7 +65,11 @@ function parseLineup(text) {
   const stationToChannel = {};
 
   for ( const m of data.map ) {
-    let channel = m.channel.includes('-') ? m.channel : `${parseInt(m.channel, 10)}`;
+    let channel = `${m.channel}`;
+
+    if ( !channel.includes('-') && !channel.includes('.') ) {
+      channel = `${parseInt(m.channel, 10)}`;
+    }
 
     stationToChannel[m.stationID] = channel;
   }

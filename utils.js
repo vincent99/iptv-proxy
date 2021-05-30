@@ -2,7 +2,8 @@ module.exports = {
   strPad,
   parseBool,
   addParam,
-  addParams
+  addParams,
+  sleep
 };
 
 function strPad(str, toLength, padChars = ' ', right = false) {
@@ -66,4 +67,10 @@ function addParams(url, params) {
   }
 
   return url;
+}
+
+function sleep(ms) {
+  return new Promise(function(resolve) {
+    setTimeout(resolve, ms);
+  });
 }

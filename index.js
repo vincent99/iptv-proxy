@@ -4,6 +4,7 @@
 // /<tuner>[.m3u]
 // /<tuner>/tune/<channel>
 // /<tuner>/stream/<channel>
+// /stream/<channel>[/tuner]
 
 const AsciiTable = require('ascii-table');
 const express = require('express');
@@ -33,7 +34,7 @@ app.get('/', (req, res) => {
     for ( let i = 0 ; i < tuners.length ; i++ ) {
       const tuner = tuners[i];
 
-      table.addRow(i, tuner.name, tuner.state, tuned[i].channel, tuned[i].title);
+      table.addRow(i, tuner.name, tuner.state, `${tuned[i].channel}`, tuned[i].title);
     }
 
     res.end(table.toString());
@@ -45,7 +46,7 @@ app.get('/:tuner', (req, res) => {
   const tuner = tunerByName(name);
 
   if ( !tuner ) {
-    res.status(404).end();
+    noTunerError(res, name);
     return;
   }
 
@@ -58,11 +59,16 @@ app.get('/:tuner', (req, res) => {
 app.get('/:tuner/tune/:channel', (req, res) => {
   const tuner = tunerByName(req.params.tuner);
 
+  if ( !tuner ) {
+    noTunerError(res, name);
+    return;
+  }
+
   console.log(`GET Tune ${tuner.name} -> ${req.params.channel}`);
 
   directv.tune(tuner, req.params.channel).then((ok) => {
     if ( ok ) {
-      res.end(`OK ${tuner.name} ${req.params.channel}`);
+      res.end(`[${tuner.name} Tuned ${req.params.channel}`);
     } else {
       res.status(400).end('Error');
     }
@@ -70,40 +76,21 @@ app.get('/:tuner/tune/:channel', (req, res) => {
 });
 
 app.get('/:tuner/stream/:channel', (req, res) => {
-  const tuner = tunerByName(req.params.tuner);
-  const channel = req.params.channel;
-  let lock;
+  return stream(req, res, req.params.tuner, req.params.channel);
+});
 
-  console.log(`GET Stream ${tuner.name} -> ${req.params.channel}`);
+app.get('/stream/:channel/:tuner', (req, res) => {
+  return stream(req, res, req.params.tuner, req.params.channel);
+});
 
-  try {
-    lock = encoder.lock(tuner);
-  } catch (e) {
-    console.log(`Stream ${tuner.name} in use: ${e}`);
-    res.status(400).end('Tuner in use');
-    return;
-  }
-
-  console.log(`Starting Tuner ${tuner.name}`);
-
-  if ( config.TUNE_ON_STREAM ) {
-    return directv.tune(tuner, channel).then((ok) => {
-      if ( ok ) {
-        console.log(`Changed channel to ${channel}`);
-        return encoder.stream(tuner, lock, req, res);
-      } else {
-        console.error(`Error changing channel to ${channel}`);
-        res.status(400).end('Error changing channel');
-      }
-    });
-  } else {
-    return encoder.stream(tuner, lock, req, res);
-  }
+app.get('/stream/:channel', (req, res) => {
+  return stream(req, res, config.ANY, req.params.channel);
 });
 
 const server = app.listen(config.PORT, () => {
   console.info('Tune on Stream', config.TUNE_ON_STREAM);
   console.info('Locking', config.ENABLE_LOCKING);
+  console.info('Redirect', config.USE_REDIRECT);
   console.info(`Listening on port ${config.PORT}`);
 });
 
@@ -121,8 +108,14 @@ function shutdown() {
 function tunerByName(name) {
   const tuners = config.TUNERS;
 
-  if ( name === 'any' ) {
-    return tuners.find(x => x.state === config.IDLE) || tuners[0];
+  if ( name === config.ANY ) {
+    for ( let i = 0 ; i < tuners.length ; i++ ) {
+      if ( tuners[i].state === config.IDLE ) {
+        return tuners[i];
+      }
+    }
+
+    return null;
   }
 
   if ( name.match(/^\d+$/) ) {
@@ -132,4 +125,47 @@ function tunerByName(name) {
   }
 
   return tuners.find(x => x.name === name);
+}
+
+function stream(req, res, name, channel) {
+  const tuner = tunerByName(name);
+  let lock;
+
+  if ( !tuner ) {
+    noTunerError(res, name);
+    return;
+  }
+
+  try {
+    lock = encoder.lock(tuner);
+    console.log(`GET Stream ${tuner.name} -> Ok ${channel}`);
+  } catch (e) {
+    console.error(`GET Stream ${tuner.name} -> Error in use`);
+    res.status(400).end('Tuner in use');
+    return;
+  }
+
+  console.log(`[${tuner.name}] Starting`);
+
+  if ( config.TUNE_ON_STREAM ) {
+    return directv.tune(tuner, channel).then((ok) => {
+      if ( ok ) {
+        console.log(`[${tuner.name}] Changed channel to ${channel}`);
+        return encoder.stream(tuner, lock, req, res);
+      } else {
+        console.error(`[${tuner.name}] Error changing channel to ${channel}`);
+        res.status(400).end('Error changing channel');
+      }
+    });
+  } else {
+    return encoder.stream(tuner, lock, req, res);
+  }
+}
+
+function noTunerError(res, name) {
+  if ( name === config.ANY ) {
+    res.status(400).end('No tuners available');
+  } else {
+    res.status(404).end('Tuner not found');
+  }
 }
