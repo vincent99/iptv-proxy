@@ -68,7 +68,7 @@ app.get('/:tuner/tune/:channel', (req, res) => {
 
   directv.tune(tuner, req.params.channel).then((ok) => {
     if ( ok ) {
-      res.end(`[${tuner.name} Tuned ${req.params.channel}`);
+      res.end(`Tuned ${tuner.name} to ${req.params.channel}`);
     } else {
       res.status(400).end('Error');
     }

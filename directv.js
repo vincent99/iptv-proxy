@@ -40,10 +40,13 @@ function tune(tuner, channel) {
 
   return fetch(tuner, path).then((res) => {
       // Get rid of banners, but don't make the caller wait for it
-    utils.sleep(500).then(() => {
+    utils.sleep(1000).then(() => {
       return fetch(tuner, '/remote/processKey?key=exit').then(() => {
-        return fetch(tuner, '/remote/processKey?key=exit').then(() => {
+        utils.sleep(1000).then(() => {
           return fetch(tuner, '/remote/processKey?key=exit').then(() => {
+            utils.sleep(1000).then(() => {
+              return fetch(tuner, '/remote/processKey?key=exit');
+            });
           });
         });
       });
