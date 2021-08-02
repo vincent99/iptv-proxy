@@ -8,7 +8,6 @@
 
 const AsciiTable = require('ascii-table');
 const express = require('express');
-const fetch = require('node-fetch');
 const path = require('path');
 
 const config = require('./config');
@@ -91,6 +90,8 @@ const server = app.listen(config.PORT, () => {
   console.info('Tune on Stream', config.TUNE_ON_STREAM);
   console.info('Locking', config.ENABLE_LOCKING);
   console.info('Redirect', config.USE_REDIRECT);
+  console.info('Reorder UDP', config.REORDER_UDP);
+  console.info('UDP Start Indicator', config.PUSI_UDP);
   console.info(`Listening on port ${config.PORT}`);
 });
 
@@ -147,19 +148,32 @@ function stream(req, res, name, channel) {
 
   console.log(`[${tuner.name}] Starting`);
 
+  // if ( config.TUNE_ON_STREAM ) {
+  //   return directv.tune(tuner, channel).then((ok) => {
+  //     if ( ok ) {
+  //       console.log(`[${tuner.name}] Changed channel to ${channel}`);
+  //       return encoder.stream(tuner, lock, req, res);
+  //     } else {
+  //       console.error(`[${tuner.name}] Error changing channel to ${channel}`);
+  //       res.status(400).end('Error changing channel');
+  //     }
+  //   });
+  // } else {
+  //   return encoder.stream(tuner, lock, req, res);
+  // }
+
   if ( config.TUNE_ON_STREAM ) {
-    return directv.tune(tuner, channel).then((ok) => {
+    directv.tune(tuner, channel).then((ok) => {
       if ( ok ) {
         console.log(`[${tuner.name}] Changed channel to ${channel}`);
-        return encoder.stream(tuner, lock, req, res);
       } else {
         console.error(`[${tuner.name}] Error changing channel to ${channel}`);
         res.status(400).end('Error changing channel');
       }
     });
-  } else {
-    return encoder.stream(tuner, lock, req, res);
   }
+
+  return encoder.stream(tuner, lock, req, res);
 }
 
 function noTunerError(res, name) {

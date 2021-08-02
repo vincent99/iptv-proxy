@@ -69,6 +69,13 @@ ascii-table@^0.0.9:
   resolved "https://registry.yarnpkg.com/ascii-table/-/ascii-table-0.0.9.tgz#06a6604d6a55d4bf41a9a47d9872d7a78da31e73"
   integrity sha1-BqZgTWpV1L9BqaR9mHLXp42jHnM=
 
+async-factory-worker@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/async-factory-worker/-/async-factory-worker-0.0.1.tgz#aea0853a4bdcafdf22df5b829a3fce32030bcc40"
+  integrity sha512-P+c23JrO66j1FPfZx9kD+5fdPoSCHXSLpZCsiivweGezc1x/mwT99PSiA6ZZzYsdCjMnRpQuG/bl93a43VTzJQ==
+  dependencies:
+    nan "^2.10.0"
+
 balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
@@ -78,6 +85,13 @@ binary-extensions@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-2.2.0.tgz#75f502eeaf9ffde42fc98829645be4ea76bd9e2d"
   integrity sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==
+
+bindings@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/bindings/-/bindings-1.5.0.tgz#10353c9e945334bc0511a6d90b38fbc7c9c504df"
+  integrity sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==
+  dependencies:
+    file-uri-to-path "1.0.0"
 
 body-parser@1.19.0:
   version "1.19.0"
@@ -296,6 +310,17 @@ duplexer3@^0.1.4:
   resolved "https://registry.yarnpkg.com/duplexer3/-/duplexer3-0.1.4.tgz#ee01dd1cac0ed3cbc7fdbea37dc0a8f1ce002ce2"
   integrity sha1-7gHdHKwO08vH/b6jfcCo8c4ALOI=
 
+dvbtee@^0.4.5:
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/dvbtee/-/dvbtee-0.4.5.tgz#1f0c908b473ce28e72abbeb5b51a9ad75665c440"
+  integrity sha512-Y4Cc1q66FA+vkHosFejiLa7IY9y4oB9HbckREtMSvMktd0ywbVDdOwoywK5dlZKHI+HbYbHG5pa9hyxWXBLuag==
+  dependencies:
+    async-factory-worker "^0.0.1"
+    libdvbtee_parser "^0.6.7"
+    nan "^2.14.1"
+  optionalDependencies:
+    bindings "^1.5.0"
+
 ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
@@ -373,6 +398,11 @@ express@^4.17.1:
     type-is "~1.6.18"
     utils-merge "1.0.1"
     vary "~1.1.2"
+
+file-uri-to-path@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/file-uri-to-path/-/file-uri-to-path-1.0.0.tgz#553a7b8446ff6f684359c445f1e37a05dacc33dd"
+  integrity sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==
 
 fill-range@^7.0.1:
   version "7.0.1"
@@ -641,6 +671,11 @@ latest-version@^5.0.0:
   dependencies:
     package-json "^6.3.0"
 
+libdvbtee_parser@^0.6.7:
+  version "0.6.8"
+  resolved "https://registry.yarnpkg.com/libdvbtee_parser/-/libdvbtee_parser-0.6.8.tgz#58ac7ad26cd568c4ff77c36ff181264492ca12a3"
+  integrity sha512-wgesBjuso4Yq07TNYa2eTOh8C7HR6s5XvJgQeFVAfHthJ9ulyE5O4nAm++ANenIveIRQsDoNllIMEAvud237AQ==
+
 lowercase-keys@^1.0.0, lowercase-keys@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/lowercase-keys/-/lowercase-keys-1.0.1.tgz#6f9e30b47084d971a7c820ff15a6c5167b74c26f"
@@ -721,6 +756,11 @@ ms@^2.1.1:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
+
+nan@^2.10.0, nan@^2.14.1:
+  version "2.14.2"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.2.tgz#f5376400695168f4cc694ac9393d0c9585eeea19"
+  integrity sha512-M2ufzIiINKCuDfBSAUr1vWQ+vuVcA9kqx8JJUsbQi6yf1uGRyb7HfpdfUr5qLXf3B/t8dPvcjhKMmlfnP47EzQ==
 
 negotiator@0.6.2:
   version "0.6.2"
